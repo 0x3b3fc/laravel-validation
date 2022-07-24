@@ -8,36 +8,30 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Eloquent - Laravel</title>
+    <title>Validation - Laravel</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <h1>Create New Post</h1>
-{{--        @if ($errors->any())--}}
-{{--            <div class="alert alert-danger">--}}
-{{--                <ul>--}}
-{{--                    @foreach ($errors->all() as $error)--}}
-{{--                        <li>{{ $error }}</li>--}}
-{{--                    @endforeach--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        @endif--}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="post" action="{{ route('posts.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" aria-describedby="title" @error('title') is-invalid @enderror >
-                @error('title')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <input type="text" class="form-control" id="title" name="title" aria-describedby="title" value="{{ old('title') }}" >
             </div>
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
-                <textarea name="body" id="body" class="form-control" cols="30" rows="10" @error('body') is-invalid @enderror ></textarea>
-                @error('body')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <textarea name="body" id="body" class="form-control" cols="30" rows="10" >{{ old('body') }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary">Store Post</button>
         </form>
